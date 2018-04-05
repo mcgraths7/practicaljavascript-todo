@@ -24,8 +24,11 @@ let todoList = {
 			p.appendChild(newElement);
 			p.appendChild(todoLabel);
 			if (todo.completed === true) {
-				console.log('( x ) ', todo.todoText);
+				console.log('(x) ', todo.todoText);
 				console.log('----------------------');
+			} else {
+				console.log('( ) ', todo.todoText);
+				console.log('----------------------')
 			}
 		}
 	},
@@ -56,29 +59,24 @@ let todoList = {
 				completedTodos++;
 			}
 		}
-
 		if (completedTodos === allTodos) {
 			for (let i = 0; i < allTodos; i++) {
-				this.toggleCompleted(i);
+				this.todos[i].completed = false;
 			}
 		} else {
 			for (let i = 0; i < allTodos; i++) {
-				if (this.todos[i].completed === false) {
-					this.toggleCompleted(i);
-				}
+				this.todos[i].completed = true;
 			}
 		}
 		this.displayTodos();
 	}
 };
 
-let todosButton = document.getElementById('display-todos');
-let toggleButton = document.getElementById('toggle-all');
-
-todosButton.addEventListener('click', function() {
-	todoList.displayTodos();
-});
-
-toggleButton.addEventListener('click', function() {
-	todoList.toggleAll();
-});
+let handlers = {
+	displayTodos: function() {
+		todoList.displayTodos();
+	},
+	toggleAll: function() {
+		todoList.toggleAll();
+	}
+};
