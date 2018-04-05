@@ -6,8 +6,17 @@
     <title>{{pageTitle}}</title>
 </head>
 <body>
-<button onclick="handlers.displayTodos()">Display Todos</button>
-<button onclick="handlers.toggleAll()">Toggle All</button>
+<div>
+    <button onclick="handlers.displayTodos()">Display Todos</button>
+    <button onclick="handlers.toggleAll()">Toggle All</button>
+</div>
+
+<div>
+    <input type="text" id="addTodoText" autofocus placeholder="What do you need to do?">
+    <button onclick="handlers.addTodo()">Add</button>
+</div>
+
+
 <div id="allTodos">
 
 </div>

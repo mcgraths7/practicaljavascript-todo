@@ -78,5 +78,18 @@ let handlers = {
 	},
 	toggleAll: function() {
 		todoList.toggleAll();
+	},
+	addTodo: function(todoText) {
+		todoText = document.getElementById('addTodoText').value;
+		todoList.addTodo(todoText);
+	},
+	deleteTodo: function(position) {
+		todoList.deleteTodo(position);
+	},
+	changeTodo: function(position, newTodoText) {
+		todoList.changeTodo(position, newTodoText);
+	},
+	toggleCompleted: function(position) {
+		todoList.toggleCompleted(position);
 	}
 };
