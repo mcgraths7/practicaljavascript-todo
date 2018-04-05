@@ -4,30 +4,45 @@ let todoList = {
 		if (this.todos.length === 0) {
 			console.log('Your todo list is empty');
 		}
+		let allTodos = document.getElementById('allTodos');
+		allTodos.innerHTML = "";
 		for (let i = 0; i < this.todos.length; i++) {
 			let todo = this.todos[i];
+			let newElement = document.createElement('input');
+			let todoLabel = document.createElement('label');
+			let p = document.createElement('p');
+			let idAttr = document.createAttribute('id');
+			let typeAttr = document.createAttribute('type');
+			let forAttr = document.createAttribute('for');
+			todoLabel.innerText = todo.todoText;
+			idAttr.value = todo.todoText;
+			forAttr.value = idAttr.value;
+			typeAttr.value = "checkbox";
+			newElement.setAttributeNode(idAttr);
+			newElement.setAttributeNode(typeAttr);
+			allTodos.appendChild(p);
+			p.appendChild(newElement);
+			p.appendChild(todoLabel);
 			if (todo.completed === true) {
 				console.log('( x ) ', todo.todoText);
-			} else {
-				console.log('(   )', todo.todoText);
+				console.log('----------------------');
 			}
-			console.log('----------------------');
 		}
 	},
 	addTodo: function(todoText) {
 		let todo = {
 			todoText: todoText,
 			completed: false
-		}
+		};
 		this.todos.push(todo);
-		this.displayTodos();
-	},
-	changeTodo: function(position, newTodoText) {
-		this.todos[position].todoText = newTodoText;
 		this.displayTodos();
 	},
 	deleteTodo: function(position) {
 		this.todos.splice(position, 1);
+	},
+	changeTodo: function(position, newTodoText) {
+		this.todos[position].todoText = newTodoText;
+		this.displayTodos();
 	},
 	toggleCompleted: function(position) {
 		let todo = this.todos[position];
@@ -55,8 +70,15 @@ let todoList = {
 		}
 		this.displayTodos();
 	}
-}
+};
 
-todoList.addTodo('First');
-todoList.addTodo('Second');
-todoList.addTodo('Third');
+let todosButton = document.getElementById('display-todos');
+let toggleButton = document.getElementById('toggle-all');
+
+todosButton.addEventListener('click', function() {
+	todoList.displayTodos();
+});
+
+toggleButton.addEventListener('click', function() {
+	todoList.toggleAll();
+});
