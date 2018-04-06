@@ -79,17 +79,24 @@ let handlers = {
 	toggleAll: function() {
 		todoList.toggleAll();
 	},
-	addTodo: function(todoText) {
-		todoText = document.getElementById('addTodoText').value;
-		todoList.addTodo(todoText);
+	addTodo: function() {
+		let addTodoText = document.getElementById('addTodoText');
+		todoList.addTodo(addTodoText.value);
+		addTodoText.value = '';
 	},
-	deleteTodo: function(position) {
-		todoList.deleteTodo(position);
+	deleteTodo: function() {
+		let deleteTodoButton = document.getElementById("deleteTodoButton");
+		todoList.deleteTodo(deleteTodoButton.valueAsNumber);
+		deleteTodoButton.value = '';
 	},
-	changeTodo: function(position, newTodoText) {
-		todoList.changeTodo(position, newTodoText);
+	changeTodo: function() {
+		let changePositionInput = document.getElementById('todoPositionInput');
+		let changeTextInput = document.getElementById('todoTextInput');
+		todoList.changeTodo(changePositionInput.valueAsNumber, changeTextInput.value);
+		changeTextInput.value = '';
+		changePositionInput = '';
 	},
-	toggleCompleted: function(position) {
+	toggleCompleted: function() {
 		todoList.toggleCompleted(position);
 	}
 };
