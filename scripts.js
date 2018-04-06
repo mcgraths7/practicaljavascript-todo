@@ -81,7 +81,13 @@ let view = {
 		todoListUL.innerHTML = '';
 		for (let i = 0; i < todoList.todos.length; i++) {
 			let todoLi = document.createElement('li');
-			todoLi.textContent = `( ) ${todoList.todos[i].todoText}`;
+			let todoText = '';
+			if (todoList.todos[i].completed === true) {
+				todoText = `( x ) ${todoList.todos[i].todoText}`
+			} else {
+				todoText = `(  ) ${todoList.todos[i].todoText}`
+			}
+			todoLi.textContent = todoText;
 			todoListUL.appendChild(todoLi);
 		}
 	}
