@@ -6,14 +6,16 @@
     <title>{{pageTitle}}</title>
 </head>
 <body>
+
+<h1>Todo List</h1>
+
 <div>
-    <button onclick="handlers.displayTodos()">Display Todos</button>
     <button onclick="handlers.toggleAll()">Toggle All</button>
 </div>
 
 <div>
-    <input type="text" id="addTodoText" autofocus placeholder="What do you need to do?">
     <button onclick="handlers.addTodo()">Add</button>
+    <input type="text" id="addTodoText" autofocus placeholder="What do you need to do?">
 </div>
 
 <div>
@@ -32,7 +34,10 @@
     <input id="toggleCompletedButton" type="number">
 </div>
 
-<div id="allTodos">
+<div>
+    <ul id="todoListUL">
+
+    </ul>
 
 </div>
 

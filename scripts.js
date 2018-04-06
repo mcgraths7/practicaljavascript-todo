@@ -1,57 +1,21 @@
 let todoList = {
 	todos: [],
-	displayTodos: function() {
-		if (this.todos.length === 0) {
-			console.log('Your todo list is empty');
-		}
-		let allTodos = document.getElementById('allTodos');
-		allTodos.innerHTML = "";
-		for (let i = 0; i < this.todos.length; i++) {
-			let todo = this.todos[i];
-			let newElement = document.createElement('input');
-			let todoLabel = document.createElement('label');
-			let p = document.createElement('p');
-			let idAttr = document.createAttribute('id');
-			let typeAttr = document.createAttribute('type');
-			let forAttr = document.createAttribute('for');
-			todoLabel.innerText = todo.todoText;
-			idAttr.value = todo.todoText;
-			forAttr.value = idAttr.value;
-			typeAttr.value = "checkbox";
-			newElement.setAttributeNode(idAttr);
-			newElement.setAttributeNode(typeAttr);
-			allTodos.appendChild(p);
-			p.appendChild(newElement);
-			p.appendChild(todoLabel);
-			if (todo.completed === true) {
-				console.log('(x) ', todo.todoText);
-				console.log('----------------------');
-			} else {
-				console.log('( ) ', todo.todoText);
-				console.log('----------------------')
-			}
-		}
-	},
 	addTodo: function(todoText) {
 		let todo = {
 			todoText: todoText,
 			completed: false
 		};
 		this.todos.push(todo);
-		this.displayTodos();
 	},
 	deleteTodo: function(position) {
 		this.todos.splice(position, 1);
-		this.displayTodos();
 	},
 	changeTodo: function(position, newTodoText) {
 		this.todos[position].todoText = newTodoText;
-		this.displayTodos();
 	},
 	toggleCompleted: function(position) {
 		let todo = this.todos[position];
 		todo.completed = !todo.completed;
-		this.displayTodos();
 	},
 	toggleAll: function() {
 		let allTodos = this.todos.length;
@@ -70,7 +34,6 @@ let todoList = {
 				this.todos[i].completed = true;
 			}
 		}
-		this.displayTodos();
 	}
 };
 
@@ -79,9 +42,16 @@ let handlers = {
 		todoList.displayTodos();
 	},
 	addTodo: function() {
+		//Add a todo to the todos array
 		let addTodoText = document.getElementById('addTodoText');
 		todoList.addTodo(addTodoText.value);
+
+		//Clear the value after adding todo
 		addTodoText.value = '';
+
+		//Call view.displayTodos to render todos
+		view.displayTodos();
+
 	},
 	changeTodo: function() {
 		let changePositionInput = document.getElementById('todoPositionInput');
@@ -102,5 +72,16 @@ let handlers = {
 	},
 	toggleAll: function() {
 		todoList.toggleAll();
+	}
+};
+
+let view = {
+	displayTodos: function() {
+		let todoListUL = document.getElementById('todoListUL');
+		todoListUL.innerHTML = '';
+		for (let i = 0; i < todoList.todos.length; i++) {
+			let todoLi = document.createElement('li');
+			todoListUL.appendChild(todoLi);
+		}
 	}
 };
