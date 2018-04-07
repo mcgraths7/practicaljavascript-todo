@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="styles.css">
-    <title>{{pageTitle}}</title>
+    <meta charset="utf-8">
+    <title>Practical Todos</title>
+    <link id="favicon" rel="icon" href="https://hyperdev.com/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
 <h1>Todo List</h1>
 
 <div>
@@ -15,32 +14,22 @@
 
 <div>
     <button onclick="handlers.addTodo()">Add</button>
-    <input type="text" id="addTodoText" autofocus placeholder="What do you need to do?">
+    <input id="addTodoTextInput" type="text">
 </div>
 
 <div>
-    <button onclick="handlers.changeTodo()">Change</button>
-    <input id="todoPositionInput" type="number">
-    <input id="todoTextInput" type="text">
+    <button onclick="handlers.changeTodo()">Change Todo</button>
+    <input id="changeTodoPositionInput" type="number">
+    <input id="changeTodoTextInput" type="text">
 </div>
 
 <div>
-    <button onclick="handlers.deleteTodo()">Delete</button>
-    <input id="deleteTodoButton" type="number">
+    <button onclick="handlers.toggleCompleted()">Toggle Completed</button>
+    <input id="toggleCompletedPositionInput" type="number">
 </div>
 
-<div>
-    <button onclick="handlers.toggleCompleted()">Complete</button>
-    <input id="toggleCompletedButton" type="number">
-</div>
-
-<div>
-    <ul id="todoListUL">
-
-    </ul>
-
-</div>
-
+<ul id="todoUL">
+</ul>
 <script src="scripts.js"></script>
 </body>
 </html>
