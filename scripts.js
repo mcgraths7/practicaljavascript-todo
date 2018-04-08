@@ -47,10 +47,8 @@ let handlers = {
 		todoList.deleteTodo(position);
 		view.displayTodos();
 	},
-	toggleCompleted: function() {
-		let toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
-		todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
-		toggleCompletedPositionInput.value = '';
+	toggleCompleted: function(position) {
+		todoList.toggleCompleted(position);
 		view.displayTodos();
 	},
 	toggleAll: function() {
@@ -66,14 +64,15 @@ let view = {
 		todoList.todos.forEach(function(todo, position) {
 			let todoLi = document.createElement('li');
 			let todoTextWithCompletion = '';
-
+			todoLi.id = `${position}`;
+			
 			todo.completed === true ? todoTextWithCompletion = '(x) ' + todo.todoText : todoTextWithCompletion = '( ) ' + todo.todoText;
 
-			todoLi.id = `${position}`;
 			todoLi.textContent = todoTextWithCompletion;
 			todoLi.appendChild(this.createDeleteButton());
 			todoLi.appendChild(this.createChangeTodoTextBox());
 			todoLi.appendChild(this.createChangeButton());
+			todoLi.appendChild(this.createToggleButton());
 			todosUl.appendChild(todoLi);
 		}, this);
 	},
@@ -87,6 +86,8 @@ let view = {
 				handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
 			} else if (elementClicked.className === 'changeButton') {
 				handlers.changeTodo(parseInt(elementClicked.parentNode.id), elementClicked.parentNode.childNodes[2].value);
+			} else if (elementClicked.className === 'toggleButton') {
+				handlers.toggleCompleted(elementClicked.parentNode.id);
 			}
 
 		});
@@ -117,6 +118,14 @@ let view = {
 		changeTodoTextBox.setAttributeNode(typeAttribute);
 		
 		return changeTodoTextBox;
+	},
+	createToggleButton: function() {
+		console.log('created');
+		let toggleButton = document.createElement('button');
+		toggleButton.className = 'toggleButton';
+		toggleButton.textContent = ' Complete ';
+		
+		return toggleButton;
 	}
 };
 view.setEventListeners();
