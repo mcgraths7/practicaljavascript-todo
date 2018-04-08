@@ -21,23 +21,16 @@ let todoList = {
 		let completedTodos = 0;
 		
 		// Get number of completed todos.
-		for (let i = 0; i < totalTodos; i++) {
-			if (this.todos[i].completed === true) {
+
+		this.todos.forEach(function(todo) {
+			if (todo.completed === true) {
 				completedTodos++;
 			}
-		}
-		
-		// Case 1: If everything’s true, make everything false.
-		if (completedTodos === totalTodos) {
-			for (let i = 0; i < totalTodos; i++) {
-				this.todos[i].completed = false;
-			}
-			// Case 2: Otherwise, make everything true.
-		} else {
-			for (let i = 0; i < totalTodos; i++) {
-				this.todos[i].completed = true;
-			}
-		}
+		});
+
+		this.todos.forEach(function(todo) {
+			completedTodos === totalTodos ? todo.completed = false : todo.completed = true;
+		});
 	}
 };
 
@@ -76,38 +69,39 @@ let view = {
 	displayTodos: function() {
 		let todosUl = document.querySelector('ul');
 		todosUl.innerHTML = '';
-		for (let i = 0; i < todoList.todos.length; i++) {
+		todoList.todos.forEach(function(todo) {
 			let todoLi = document.createElement('li');
-			let todo = todoList.todos[i];
 			let todoTextWithCompletion = '';
-			
+
 			if (todo.completed === true) {
 				todoTextWithCompletion = '(x) ' + todo.todoText;
 			} else {
 				todoTextWithCompletion = '( ) ' + todo.todoText;
 			}
-			
-			todoLi.id = `${i}`;
-			
+
+			todoLi.id = `${todoList.todos.indexOf(todo)}`;
 			todoLi.textContent = todoTextWithCompletion;
-			todoLi.appendChild(this.createDeleteButton());
+			todoLi.appendChild(view.createDeleteButton());
 			todosUl.appendChild(todoLi);
-		}
+		});
 	},
 	setEventListeners: function() {
 		let todosUl = document.querySelector('ul');
+
 		todosUl.addEventListener('click', function(event) {
 			let elementClicked = event.target;
+
 			if (elementClicked.className === 'deleteButton') {
 				handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
 			}
+
 		});
 	},
 	createDeleteButton: function() {
 		let deleteButton = document.createElement('button');
 		deleteButton.textContent = 'Delete';
 		deleteButton.className = 'deleteButton';
-		
+
 		return deleteButton;
 	}
 };
