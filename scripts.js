@@ -39,12 +39,8 @@ let handlers = {
 		addTodoTextInput.value = '';
 		view.displayTodos();
 	},
-	changeTodo: function() {
-		let changeTodoPositionInput = document.getElementById('changeTodoPositionInput');
-		let changeTodoTextInput = document.getElementById('changeTodoTextInput');
-		todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
-		changeTodoPositionInput.value = '';
-		changeTodoTextInput.value = '';
+	changeTodo: function(position, newTodoText) {
+		todoList.changeTodo(position, newTodoText);
 		view.displayTodos();
 	},
 	deleteTodo: function(position) {
@@ -76,6 +72,8 @@ let view = {
 			todoLi.id = `${position}`;
 			todoLi.textContent = todoTextWithCompletion;
 			todoLi.appendChild(this.createDeleteButton());
+			todoLi.appendChild(this.createChangeTodoTextBox());
+			todoLi.appendChild(this.createChangeButton());
 			todosUl.appendChild(todoLi);
 		}, this);
 	},
@@ -87,9 +85,12 @@ let view = {
 
 			if (elementClicked.className === 'deleteButton') {
 				handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
+			} else if (elementClicked.className === 'changeButton') {
+				handlers.changeTodo(parseInt(elementClicked.parentNode.id), elementClicked.parentNode.childNodes[2].value);
 			}
 
 		});
+		
 	},
 	createDeleteButton: function() {
 		let deleteButton = document.createElement('button');
@@ -97,6 +98,25 @@ let view = {
 		deleteButton.className = 'deleteButton';
 
 		return deleteButton;
+	},
+	createChangeButton: function() {
+		let changeButton = document.createElement('button');
+		changeButton.textContent = 'Change';
+		changeButton.className = 'changeButton';
+		
+		return changeButton;
+	},
+	createChangeTodoTextBox: function() {
+		let changeTodoTextBox = document.createElement('input');
+		let typeAttribute = document.createAttribute('type');
+		let prePopulatedAttribute = document.createAttribute('placeholder');
+		prePopulatedAttribute.value = "Change your todo";
+		typeAttribute.value = 'text';
+		changeTodoTextBox.className = 'changeTodoTextBox';
+		changeTodoTextBox.setAttributeNode(prePopulatedAttribute);
+		changeTodoTextBox.setAttributeNode(typeAttribute);
+		
+		return changeTodoTextBox;
 	}
 };
 view.setEventListeners();
