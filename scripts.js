@@ -19,8 +19,6 @@ let todoList = {
 	toggleAll: function() {
 		let totalTodos = this.todos.length;
 		let completedTodos = 0;
-		
-		// Get number of completed todos.
 
 		this.todos.forEach(function(todo) {
 			if (todo.completed === true) {
@@ -69,21 +67,17 @@ let view = {
 	displayTodos: function() {
 		let todosUl = document.querySelector('ul');
 		todosUl.innerHTML = '';
-		todoList.todos.forEach(function(todo) {
+		todoList.todos.forEach(function(todo, position) {
 			let todoLi = document.createElement('li');
 			let todoTextWithCompletion = '';
 
-			if (todo.completed === true) {
-				todoTextWithCompletion = '(x) ' + todo.todoText;
-			} else {
-				todoTextWithCompletion = '( ) ' + todo.todoText;
-			}
+			todo.completed === true ? todoTextWithCompletion = '(x) ' + todo.todoText : todoTextWithCompletion = '( ) ' + todo.todoText;
 
-			todoLi.id = `${todoList.todos.indexOf(todo)}`;
+			todoLi.id = `${position}`;
 			todoLi.textContent = todoTextWithCompletion;
-			todoLi.appendChild(view.createDeleteButton());
+			todoLi.appendChild(this.createDeleteButton());
 			todosUl.appendChild(todoLi);
-		});
+		}, this);
 	},
 	setEventListeners: function() {
 		let todosUl = document.querySelector('ul');
